@@ -13,7 +13,7 @@ def _is_comment(line):
     :return True/False: boolean to indicate if the line is comment or not
     """
     config = configparser.ConfigParser()
-    config.read("config_script/config.ini")
+    config.read("config_script/config.ini") # MP: qui meglio usare os.path.join, in modo da renderlo multipiattaforma
     NUM_KEY_WORD_COMM = config.getint('Comments_Counter', 'Num_Key_Word_Comm')
     code_counter = 0
     code_word = keyword.kwlist
@@ -39,7 +39,7 @@ def _is_end_comment(line):
     :param line: line to control
     :return True/False: boolean to indicate if the line is the end of multi line comments
     """
-    return bool((line.endswith("'''")or line.endswith('"""')))
+    return bool((line.endswith("'''") or line.endswith('"""')))
 
 
 def _is_canc_comment(line):
