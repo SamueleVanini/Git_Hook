@@ -14,7 +14,7 @@ def _is_comment(line):
     """
     config = configparser.ConfigParser()
     config.read("config_script/config.ini")
-    NUM_KEY_WORD_COMM = config.getint('Comments_Counter', 'Percentuale_Min_Comm')
+    NUM_KEY_WORD_COMM = config.getint('Comments_Counter', 'Num_Key_Word_Comm')
     code_counter = 0
     code_word = keyword.kwlist
     for word in line:

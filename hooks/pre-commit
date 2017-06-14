@@ -5,10 +5,16 @@ import git
 from subprocess import check_output
 from git import Repo
 
-
+# setto la variabile con la directory attuale
+dir_path = os.path.abspath(os.curdir)
+# blocco per la lettura del file .ini
 config = configparser.ConfigParser()
-config.read('config_script/config.ini')
-PERC_COMM_MIN = config['Comments_Counter']['Percentuale_Min_Comm']
+# costruzione percorso per file conf.ini
+path_conf_file = os.path.join(dir_path, os.pardir)
+path_conf_file = os.path.join(path_conf_file, "Git_Hook", "config_script",
+                              "config.ini")
+config.read(path_conf_file)
+PERC_COMM_MIN = config.getint('Comments_Counter', 'Percentuale_Min_Comm')
 
 
 def _cut_useles(files):
@@ -27,20 +33,23 @@ def _cut_useles(files):
             files_list.append(files[i])
     return files_list
 
-
-dir_path = os.path.abspath(os.curdir)
+# inizializzo una variabile repository
 repo = Repo(dir_path)
 git = repo.git
+# eseguo il comando git status
 status = git.status('-s')
 status = _cut_useles(status)
-program_path = os.path.join(dir_path, "Git_Hooks", "Main.py")
+# creo il path per il main
+program_path = os.path.join(dir_path, "Git_Hook", "Main.py")
 for i in range(len(status)):
+    # passo al main ogni file su cui effettuo il conteggio dei commenti
     file = os.path.join(dir_path, status[i])
     perc = check_output(['python', program_path, file])
     perc = perc.decode()
     perc = perc.split('\r')
     if perc[0] == 'pydoc assente':
-        print("Nel file: " + status[i] + " pydoc mancanti o non sempre presenti")
+        print("Nel file: " + status[i] +
+              " pydoc mancanti o non sempre presenti")
         exit(1)
     if float(perc[0]) < PERC_COMM_MIN:
         print("Nel file: " + status[i] + " i commenti sono meno del 30%")
