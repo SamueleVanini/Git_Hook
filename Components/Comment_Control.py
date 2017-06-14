@@ -1,6 +1,8 @@
 """
+configparser -> module for the parse of .ini file
 keyword -> module for the keyword of python
 """
+import configparser
 import keyword
 
 
@@ -10,14 +12,15 @@ def _is_comment(line):
     :param line: line to control
     :return True/False: boolean to indicate if the line is comment or not
     """
-    if ':' in line:
-        return _is_pydoc(line)
+    config = configparser.ConfigParser()
+    config.read("config_script/config.ini")
+    NUM_KEY_WORD_COMM = config.getint('Comments_Counter', 'Percentuale_Min_Comm')
     code_counter = 0
     code_word = keyword.kwlist
     for word in line:
         if word == code_word:
             code_counter += 1
-    return code_counter < 3
+    return code_counter < NUM_KEY_WORD_COMM
 
 
 def _is_start_comment(line):
