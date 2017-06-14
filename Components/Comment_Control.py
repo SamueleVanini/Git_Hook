@@ -1,9 +1,11 @@
 """
 configparser -> module for the parse of .ini file
 keyword -> module for the keyword of python
+os -> module for interaction with the Operation System
 """
 import configparser
 import keyword
+import os
 
 
 def _is_comment(line):
@@ -13,7 +15,7 @@ def _is_comment(line):
     :return True/False: boolean to indicate if the line is comment or not
     """
     config = configparser.ConfigParser()
-    config.read("config_script/config.ini") # MP: qui meglio usare os.path.join, in modo da renderlo multipiattaforma
+    config.read(os.path.join('config_script', 'config.ini'))
     NUM_KEY_WORD_COMM = config.getint('Comments_Counter', 'Num_Key_Word_Comm')
     code_counter = 0
     code_word = keyword.kwlist

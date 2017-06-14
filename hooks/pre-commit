@@ -11,13 +11,10 @@ dir_path = os.path.abspath(os.curdir)
 config = configparser.ConfigParser()
 # costruzione percorso per file conf.ini
 path_conf_file = os.path.join(dir_path, os.pardir)
-path_conf_file = os.path.join(path_conf_file, "Git_Hook", "config_script",
-                              "config.ini")
+path_conf_file = os.path.join(path_conf_file, 'Git_Hook', 'config_script',
+                              'config.ini')
 config.read(path_conf_file)
 PERC_COMM_MIN = config.getint('Comments_Counter', 'Percentuale_Min_Comm')
-# MP: sono presenti sia apici singoli che doppi apici per le stringhe. È meglio conformarsi a una singola soluzione
-# (noi come team utilizziamo l'apice singolo, sia per stringhe di un solo carattere che per quelle più lunghe)
-
 
 def _cut_useles(files):
     """
@@ -27,13 +24,12 @@ def _cut_useles(files):
     """
     files_list = []
     files = files.split('\n')
-    for i in range(len(files)):
-    # MP: conviene usare 'for file in files', è più sintetico e l'interprete lo legge più velocemente
-        if not files[i].startswith('?') and not files[i].startswith(' ') and \
-           files[i].endswith('.py'):
-            files[i] = files[i][2:]
-            files[i] = files[i].strip(' ')
-            files_list.append(files[i])
+    for file in files:
+        if not file.startswith('?') and not file.startswith(' ') and \
+           file.endswith('.py'):
+            file = file[2:]
+            file = file.strip(' ')
+            files_list.append(file)
     return files_list
 
 # inizializzo una variabile repository
@@ -43,23 +39,23 @@ git = repo.git
 status = git.status('-s')
 status = _cut_useles(status)
 # creo il path per il main
-program_path = os.path.join(dir_path, "Git_Hook", "Main.py")
-for i in range(len(status)):
-# MP: anche qui, come prima, conviene usare la sintassi for - in
+program_path = os.path.join(dir_path, 'Git_Hook', 'Main.py')
+for file_name in status:
     # passo al main ogni file su cui effettuo il conteggio dei commenti
-    file = os.path.join(dir_path, status[i])
+    file = os.path.join(dir_path, file_name)
     perc = check_output(['python', program_path, file])
     perc = perc.decode()
     perc = perc.split('\r')
     if perc[0] == 'pydoc assente':
-        print("Nel file: " + status[i] +
-              " pydoc mancanti o non sempre presenti")
+        print("Nel file: " + file_name +
+              ' pydoc mancanti o non sempre presenti')
         exit(1)
     if float(perc[0]) < PERC_COMM_MIN:
-        print("Nel file: " + status[i] + " i commenti sono meno del 30%")
+        print('Nel file: ' + file_name + ' i commenti sono meno del %s' %
+              PERC_COMM_MIN)
         print('Percentuale commenti: ' + perc[0])
         exit(1)
     else:
-        print('Nel file: ' + status[i] + ' hai commentato bene, bravo')
+        print('Nel file: ' + file_name + ' hai commentato bene, bravo')
         print('Percentuale commenti: ' + perc[0] + '%')
 exit(0)
