@@ -67,7 +67,7 @@ def file_reader(file):
                 if Comment_Control._is_comment(line):
                     comment_count += 1
             elif function_start:
-                print("pydoc assente")
+                print('pydoc assente')
                 function_start = False
             # controllo se la linea è la fine di un commento multi linea
             if Comment_Control._is_end_comment(line) and not first_line_comment:
@@ -84,5 +84,5 @@ def file_reader(file):
     result_list = [line_count, comment_count]
     return result_list
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main(sys.argv[1])
