@@ -50,9 +50,12 @@ for file_name in status:
         print("Nel file: " + file_name +
               ' pydoc mancanti o non sempre presenti')
         exit(1)
+    if perc[0] == 'file empty':
+        print("Il file: " + file_name +
+              ' non presenta niente al suo interno')
     if float(perc[0]) < percentage_min_comments:
         print('Nel file: ' + file_name + ' i commenti sono meno del %s' %
-              PERC_COMM_MIN)
+              percentage_min_comments)
         print('Percentuale commenti: ' + perc[0])
         exit(1)
     else:

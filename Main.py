@@ -19,7 +19,7 @@ def main(file_input):
     try:
         print(result_list[1]/result_list[0]*100)
     except ZeroDivisionError:
-        print('0')
+        print('file empty')
     # return(result_list[1]/result_list[0]*100)
 
 
