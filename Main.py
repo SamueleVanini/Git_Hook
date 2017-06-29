@@ -17,7 +17,7 @@ def main(file_input):
     result_list = file_reader(file)
     file.close()
     try:
-        print(result_list[1]/result_list[0]*100)
+        print((float(result_list[1])/float(result_list[0]))*100)
     except ZeroDivisionError:
         print('file empty')
     # return(result_list[1]/result_list[0]*100)
