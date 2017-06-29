@@ -5,16 +5,16 @@ import git
 from subprocess import check_output
 from git import Repo
 
-# setto la variabile con la directory attuale
+# set the variable with the current directory
 dir_path = os.path.abspath(os.curdir)
-# blocco per la lettura del file .ini
+# parser of .ini file
 config = configparser.ConfigParser()
-# costruzione percorso per file conf.ini
-path_conf_file = os.path.join(dir_path, os.pardir)
-path_conf_file = os.path.join(path_conf_file, 'Git_Hook', 'config_script',
+# build path for conf.ini file
+# path_conf_file = os.path.join(dir_path, os.pardir)
+path_conf_file = os.path.join('Git_Hook-master', 'config_script',
                               'config.ini')
 config.read(path_conf_file)
-PERC_COMM_MIN = config.getint('Comments_Counter', 'Percentuale_Min_Comm')
+percentage_min_comments = config.getint('Comments_Counter', 'percentage_min_comments')
 
 def _cut_useles(files):
     """
@@ -32,16 +32,16 @@ def _cut_useles(files):
             files_list.append(file)
     return files_list
 
-# inizializzo una variabile repository
+# initialize the repository variable
 repo = Repo(dir_path)
 git = repo.git
-# eseguo il comando git status
+# run the command git status -s
 status = git.status('-s')
 status = _cut_useles(status)
-# creo il path per il main
-program_path = os.path.join(dir_path, 'Git_Hook', 'Main.py')
+# build path for Main.py
+program_path = os.path.join(dir_path, 'Git_Hook-master', 'Main.py')
 for file_name in status:
-    # passo al main ogni file su cui effettuo il conteggio dei commenti
+    # passing the file for the count of comments
     file = os.path.join(dir_path, file_name)
     perc = check_output(['python', program_path, file])
     perc = perc.decode()
@@ -50,7 +50,7 @@ for file_name in status:
         print("Nel file: " + file_name +
               ' pydoc mancanti o non sempre presenti')
         exit(1)
-    if float(perc[0]) < PERC_COMM_MIN:
+    if float(perc[0]) < percentage_min_comments:
         print('Nel file: ' + file_name + ' i commenti sono meno del %s' %
               PERC_COMM_MIN)
         print('Percentuale commenti: ' + perc[0])

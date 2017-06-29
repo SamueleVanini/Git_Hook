@@ -7,6 +7,10 @@ import configparser
 import keyword
 import os
 
+config = configparser.ConfigParser()
+config.read(os.path.join('Git_Hook-master', 'config_script', 'config.ini'))
+num_max_of_python_word_for_comment = config.getint('Comments_Counter', 'num_max_of_python_word_for_comment')
+
 
 def _is_comment(line):
     """
@@ -14,15 +18,12 @@ def _is_comment(line):
     :param line: line to control
     :return True/False: boolean to indicate if the line is comment or not
     """
-    config = configparser.ConfigParser()
-    config.read(os.path.join('config_script', 'config.ini'))
-    NUM_KEY_WORD_COMM = config.getint('Comments_Counter', 'Num_Key_Word_Comm')
     code_counter = 0
     code_word = keyword.kwlist
     for word in line:
         if word == code_word:
             code_counter += 1
-    return code_counter < NUM_KEY_WORD_COMM
+    return code_counter < num_max_of_python_word_for_comment
 
 
 def _is_start_comment(line):
@@ -44,7 +45,7 @@ def _is_end_comment(line):
     return bool((line.endswith("'''") or line.endswith('"""')))
 
 
-def _is_canc_comment(line):
+def _is_hashtag_comment(line):
     """
     Check if the '#' is for a comment or into a string
     :param line: line to control

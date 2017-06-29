@@ -9,7 +9,7 @@ from Components import Comment_Control, Comments_Distribution
 
 def main(file_input):
     """
-    Main che gestisce il conteggio delle righe di commento in un sorgente
+    Main of program
     :param file_input: file with the comments to count
     :return: comments percentage
     """
@@ -39,10 +39,10 @@ def file_reader(file):
         line_count += 1
         line = line.replace('\n', '')
         try:
-            # controllo se la linea è l'intestazione di una funzione
+            # control if the line is the start of a function
             if Comments_Distribution._function_comment(line):
                 function_start = True
-            # controllo se la linea è l'inizio di un commento multi linea
+            # control if the line is the start of a multi line comments block
             elif Comment_Control._is_start_comment(line) and comment_block is False:
                 if Comment_Control._is_pydoc(line):
                     line_count -= 1
@@ -54,7 +54,7 @@ def file_reader(file):
                     comment_count += 1
                     comment_block = True
                     function_start = False
-            # controllo se la riga è un commento dentro un blocco multi linea
+            # control is the line is a comment inside a multi line comments block
             elif comment_block is True:
                 first_line_comment = False
                 if Comment_Control._is_pydoc(line):
@@ -62,14 +62,14 @@ def file_reader(file):
                 elif Comment_Control._is_comment(line):
                     comment_count += 1
                     pydoc_line_counter += 1
-            # controllo se la linea è un commento con cancelletto
-            elif Comment_Control._is_canc_comment(line) and comment_block is False:
+            # control if the line is a single comment line (comments start with '#')
+            elif Comment_Control._is_hashtag_comment(line) and comment_block is False:
                 if Comment_Control._is_comment(line):
                     comment_count += 1
             elif function_start:
                 print('pydoc assente')
                 function_start = False
-            # controllo se la linea è la fine di un commento multi linea
+            # control if the line is the end of multi line comments block
             if Comment_Control._is_end_comment(line) and not first_line_comment:
                 comment_block = False
                 line_count -= pydoc_line_counter
