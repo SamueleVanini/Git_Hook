@@ -49,9 +49,9 @@ for file_name in status:
     if perc[0] == 'missing pydoc':
         print('ERROR: the file ' + file_name + ' misses some pydocs.')
         exit(1)
-    if perc[0] == 'empty file':
+    elif perc[0] == 'empty file':
         print('WARNING: ' + file_name + ' is an empty file.')
-    if float(perc[0]) < percentage_min_comments:
+    elif float(perc[0]) < percentage_min_comments:
         print('ERROR: the file ' + file_name + ' has less then ' + str(percentage_min_comments) + '% of comments. Comment percentage: ' + perc[0] + '%')
         exit(1)
     # else:
