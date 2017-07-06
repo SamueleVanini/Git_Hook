@@ -6,7 +6,6 @@ Comments_Distribution -> module to verify the comment distribution into the code
 import sys
 from Components import Comment_Control, Comments_Distribution
 
-
 def main(file_input):
     """
     Main function
@@ -21,7 +20,6 @@ def main(file_input):
     except ZeroDivisionError:
         print('empty file')
     # return(result_list[1]/result_list[0]*100)
-
 
 def file_reader(file):
     """

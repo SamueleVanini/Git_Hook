@@ -47,7 +47,7 @@ for file_name in status:
     perc = perc.decode()
     perc = perc.split('\r')
     if perc[0] == 'missing pydoc':
-        print('ERROR: the file ' + file_name + ' misses some pydocs.')
+        print('ERROR: the file ' + file_name + ' is missing some pydocs on functions.')
         exit(1)
     elif perc[0] == 'empty file':
         print('WARNING: ' + file_name + ' is an empty file.')

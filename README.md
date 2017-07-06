@@ -1,6 +1,6 @@
 # Python Comment Counter
 Utility to count the comments in the .py files of a Git repository, to check the conformance to a pre-established comment quota.
-Python Comment Counter stops the commit if one ore more Python files don't have enough comment lines. Additionally, it checks for pydocs.
+Python Comment Counter stops the commit if one ore more Python files don't have enough comment lines. Additionally, it checks for pydocs on functions.
 
 # Requirements
 This utility requires the module gitpython. You can install it via pip:
