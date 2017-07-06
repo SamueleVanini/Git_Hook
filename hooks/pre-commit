@@ -11,7 +11,7 @@ dir_path = os.path.abspath(os.curdir)
 config = configparser.ConfigParser()
 # build path for conf.ini file
 # path_conf_file = os.path.join(dir_path, os.pardir)
-path_conf_file = os.path.join('Git_Hook-master', 'config_script',
+path_conf_file = os.path.join('py-comment-counter', 'config_script',
                               'config.ini')
 config.read(path_conf_file)
 percentage_min_comments = config.getint('Comments_Counter', 'percentage_min_comments')
@@ -39,7 +39,7 @@ git = repo.git
 status = git.status('-s')
 status = _cut_useles(status)
 # build path for Main.py
-program_path = os.path.join(dir_path, 'Git_Hook-master', 'Main.py')
+program_path = os.path.join(dir_path, 'py-comment-counter', 'Main.py')
 for file_name in status:
     # passing the file for the count of comments
     file = os.path.join(dir_path, file_name)

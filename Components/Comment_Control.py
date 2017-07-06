@@ -8,7 +8,7 @@ import keyword
 import os
 
 config = configparser.ConfigParser()
-config.read(os.path.join('Git_Hook-master', 'config_script', 'config.ini'))
+config.read(os.path.join('py-comment-counter', 'config_script', 'config.ini'))
 num_max_of_python_word_for_comment = config.getint('Comments_Counter', 'num_max_of_python_word_for_comment')
 
 
