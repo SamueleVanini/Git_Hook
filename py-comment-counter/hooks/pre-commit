@@ -46,19 +46,15 @@ for file_name in status:
     perc = check_output(['python', program_path, file])
     perc = perc.decode()
     perc = perc.split('\r')
-    if perc[0] == 'pydoc assente':
-        print("Nel file: " + file_name +
-              ' pydoc mancanti o non sempre presenti')
+    if perc[0] == 'missing pydoc':
+        print('ERROR: the file ' + file_name + ' misses some pydocs.')
         exit(1)
-    if perc[0] == 'file empty':
-        print("Il file: " + file_name +
-              ' non presenta niente al suo interno')
+    if perc[0] == 'empty file':
+        print('WARNING: ' + file_name + ' is an empty file.')
     if float(perc[0]) < percentage_min_comments:
-        print('Nel file: ' + file_name + ' i commenti sono meno del %s' %
-              percentage_min_comments)
-        print('Percentuale commenti: ' + perc[0])
+        print('ERROR: the file ' + file_name + ' has less then ' + str(percentage_min_comments) + '% of comments. Comment percentage: ' + perc[0] + '%')
         exit(1)
-    else:
-        print('Nel file: ' + file_name + ' hai commentato bene, bravo')
-        print('Percentuale commenti: ' + perc[0] + '%')
+    # else:
+    #    print('PASSED: the file ' + file_name + ' has enough comments.')
+    #    print('Comment percentage: ' + perc[0] + '%')
 exit(0)

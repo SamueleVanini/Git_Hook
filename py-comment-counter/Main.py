@@ -19,7 +19,7 @@ def main(file_input):
     try:
         print((float(result_list[1])/float(result_list[0]))*100)
     except ZeroDivisionError:
-        print('file empty')
+        print('empty file')
     # return(result_list[1]/result_list[0]*100)
 
 
@@ -67,7 +67,7 @@ def file_reader(file):
                 if Comment_Control._is_comment(line):
                     comment_count += 1
             elif function_start:
-                print('pydoc assente')
+                print('missing pydoc')
                 function_start = False
             # check if the line is the end of multi line comments block
             if Comment_Control._is_end_comment(line) and not first_line_comment:
