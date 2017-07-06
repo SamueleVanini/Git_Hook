@@ -1,7 +1,7 @@
 """
 configparser -> module for the parse of .ini file
-keyword -> module for the keyword of python
-os -> module for interaction with the Operation System
+keyword -> module for the keywords of python
+os -> module for the interaction with the Operation System
 """
 import configparser
 import keyword
@@ -14,7 +14,7 @@ num_max_of_python_word_for_comment = config.getint('Comments_Counter', 'num_max_
 
 def _is_comment(line):
     """
-    Check if the words into the line are comments or code
+    Check if the words in the line are comments or code
     :param line: line to control
     :return True/False: boolean to indicate if the line is comment or not
     """
@@ -28,9 +28,9 @@ def _is_comment(line):
 
 def _is_start_comment(line):
     """
-    Check if the line is the start of multi line comments
+    Check if the line is the start of a multi line comment
     :param line: line to control
-    :return True/False: boolean to indicate if the line is the end of multi line comments
+    :return True/False: boolean to indicate if the line is the end of a multi line comment
     """
     line = line.strip(' \t\n\r')
     return bool(line.startswith("'''") or line.startswith('"""'))
@@ -38,18 +38,18 @@ def _is_start_comment(line):
 
 def _is_end_comment(line):
     """
-    Check if the line is the end of multi line comments
+    Check if the line is the end of a multi line comment
     :param line: line to control
-    :return True/False: boolean to indicate if the line is the end of multi line comments
+    :return True/False: boolean to indicate if the line is the end of a multi line comment
     """
     return bool((line.endswith("'''") or line.endswith('"""')))
 
 
 def _is_hashtag_comment(line):
     """
-    Check if the '#' is for a comment or into a string
+    Check if the '#' is a comment or into a string
     :param line: line to control
-    :return True/False: boolean to indicate if '#' is comment or into a string
+    :return True/False: boolean to indicate if '#' is a comment or into a string
     """
     comment_block = False
     for letter in line:

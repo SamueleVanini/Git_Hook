@@ -16,9 +16,9 @@ path_conf_file = os.path.join('py-comment-counter', 'config_script',
 config.read(path_conf_file)
 percentage_min_comments = config.getint('Comments_Counter', 'percentage_min_comments')
 
-def _cut_useles(files):
+def _cut_useless(files):
     """
-    Cut the useles part of a raw and take only the file to commit
+    Cut the useless part of a list of files and take only the file to commit
     :param files: list of files to commit or not
     :return file_list: list with only file to commit
     """
@@ -37,11 +37,11 @@ repo = Repo(dir_path)
 git = repo.git
 # run the command git status -s
 status = git.status('-s')
-status = _cut_useles(status)
+status = _cut_useless(status)
 # build path for Main.py
 program_path = os.path.join(dir_path, 'py-comment-counter', 'Main.py')
 for file_name in status:
-    # passing the file for the count of comments
+    # passing the file to count the comments
     file = os.path.join(dir_path, file_name)
     perc = check_output(['python', program_path, file])
     perc = perc.decode()
