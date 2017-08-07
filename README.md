@@ -1,17 +1,17 @@
-# Git_Hook
-Programma per il controllo dei commit git 
-secondo le righe di commento nei sorgenti
+# Python Comment Counter
+Utility that counts the comments in the .py files of a Git repository and checks the conformance to a pre-established comment quota.
+Python Comment Counter stops the commit if one ore more Python files don't have enough comment lines. Additionally, it checks for pydocs on functions.
 
-# Installazione
-Una volta aggiunta la cartella Git_Hook-master al vostro progetto entrate nella
-cartella `Git_Hook-master\config_script` ed eseguite lo script `git_template_conf.cmd`
-trammite doppio click (ATTENZIONE se è già presente uno script di pre-commit il nuovo codice verrà accodato a quello vecchio,
-assicurarsi di eseguire lo script una sola volta in modo che non avvengano conflitti all'interno dello script)
+# Requirements
+This utility requires the module gitpython. You can install it via pip:
 
-Ora ogni volta che farete un commit tramite git su quel progetto tutti i 
-sorgenti che che avete aggiunto verranno controllati
+`pip install gitpython`
 
-# Note
-Non sarà più necessario eseguire nuovamente i passaggi descritti 
-nell'installazione salvo nuovi aggiornamenti dello script `pre-commit`
-contenuto in `Git_Hook-master\hooks`
+or easy install:
+
+`easy_install gitpython`
+
+# Installation
+Simply add the py-comment-counter on the home folder of your Git project (the folder in which the .git hidden directory is located). Navigate in the folder `py-comment-counter\config_script` and check the parameters contained in `config.ini`. Then, execute the script `git_template_conf.cmd`. The script will add a pre-commit hook to Git, so that before every commit the amount of comment lines will be automatically checked for every Python file.
+
+If the pre-commit hook file already contains code, the check will be appended. This does mean that the `git_template_conf.cmd` **must be executed only one time.**
